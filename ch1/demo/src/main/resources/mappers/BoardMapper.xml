@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.board.mapper.BoardMapper">
+
+    <!-- Create -->
+    <insert id="boardInsert"
+            parameterType="com.example.demo.board.domain.BoardVO"
+      >
+	    INSERT INTO board (title, userID, contents, reg_dt)
+		VALUES (#{title}, #{userID}, #{contents}, now())
+    </insert>
+
+    <!-- Read -->
+    <select id="boardList"
+            resultType="com.example.demo.board.domain.BoardVO"
+    >
+        SELECT *
+        FROM board
+
+    </select>
+
+    <!-- Update-->
+<!--
+    <update id="editBoard" parameterType="com.example.demo.board.domain.BoardVO">
+        UPDATE lab04
+        SET `title` = #{title},
+            `contents` = #{contents},
+            `userID` = #{userID}
+        WHERE `bno` = #{bno}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE lab04 where seq = #{seq}
+    </delete>
+-->
+</mapper>
