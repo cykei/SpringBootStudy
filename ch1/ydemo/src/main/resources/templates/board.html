@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <style>
+        body{
+            padding : 20px;
+        }
+        .btn{
+            margin : 10px 0px ;
+        }
+    </style>
+    <title>게시글 목록</title>
+</head>
+<body>
+<!-- thyme leaf 자체가 jstl 같은걸 사용할 수 있는 언어이다. -->
+
+    <h3>게시글 목록</h3>
+    <button class="btn btn-primary" style="float : right;" onclick="location.href='/board/create'">작성</button>
+    <table class="table">
+        <tr>
+
+            <th width="10%">제목</th>
+            <th width="10%">작성자</th>
+            <th width="10%">작성날짜</th>
+            <th width="30%">내용</th>
+            <th width="10%">작업</th>
+        </tr>
+        <tr th:each="message : ${list}">
+
+            <td th:text = "${message.title}"></td>
+            <td th:text = "${message.userID}"></td>
+            <td th:text = "${message.reg_dt}"></td>
+            <td th:text = "${message.contents}"></td>
+            <td>
+                <a th:href="@{'/board/update/'+ ${message.bno}}">수정</a> / <a th:href="@{'/board/delete?bno=' + ${message.bno}}">삭제</a>
+            </td>
+        </tr>
+    </table>
+
+
+
+</body>
+</html>
