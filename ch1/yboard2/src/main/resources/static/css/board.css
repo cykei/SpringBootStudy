@@ -1,0 +1,7 @@
+table{
+    boarder-collapse: collapse;
+}
+
+table, th, td{
+    boarder: 1px solid black;
+}
