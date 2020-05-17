@@ -23,12 +23,16 @@ public class BoardController {
 
      */
     @GetMapping("/")
-    public String list(Model model){
+    public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum){
         // RestController가 아니기 때문에 반환값으로는 view 또는 redirect가 와야한다.
+        List<BoardDto> boardList = boardService.getBoardList(pageNum);
 
-        List<BoardDto> boardList = boardService.getBoardList();
+        // 페이징 기능추가
+        Integer[] pageList = boardService.getPageList(pageNum);
 
         model.addAttribute("boardList",boardList);
+        model.addAttribute("pageList",pageList);
+
         return "board/list";
     }
 

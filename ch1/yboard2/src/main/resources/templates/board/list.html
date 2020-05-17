@@ -51,6 +51,13 @@
     </table>
 
 
+    <!-- 페이징 -->
+    <div>
+        <span th:each="pageNum : ${pageList}" th:inline="text">
+            <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+        </span>
+    </div>
+
     <!--Footer Fragment-->
     <th:block th:replace="common/footer :: footer"></th:block>
 
