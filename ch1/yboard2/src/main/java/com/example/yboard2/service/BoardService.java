@@ -37,6 +37,10 @@ public class BoardService {
 
     @Transactional
     public BoardDto getPost(Long id){
+        // 글쓰기 "등록" 을 눌렀는데 브라우저가 멈춰서 한번더 등록을 누르게 되면
+        // 게시글이 두번들어가는 오류가 있다.
+        // 이 문제를 어떻게 해결하는게 좋을까?
+
         Optional<BoardEntity> boardEntityWrapper = boardRepository.findById(id);
         // 이런식으로 Optional 클래스를 써서 얻는 메리트가 뭐가 있을까...?
 
@@ -68,4 +72,30 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    // 검색 ////////////////////////////////////////////////////////
+    @Transactional
+    public List<BoardDto> searchPosts(String keyword){
+        //List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
+        List<BoardEntity> boardEntities = boardRepository.findByContentContaining(keyword);
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        if(boardEntities.isEmpty()) return boardDtoList;
+        for (BoardEntity boardEntity : boardEntities){
+            boardDtoList.add(this.convertEntityToDto(boardEntity));
+        }
+
+        return boardDtoList;
+    }
+
+    private BoardDto convertEntityToDto(BoardEntity boardEntity){
+        return BoardDto.builder()
+                .id(boardEntity.getId())
+                .title(boardEntity.getTitle())
+                .content(boardEntity.getContent())
+                .writer(boardEntity.getWriter())
+                .createdDate(boardEntity.getCreatedDate())
+                .build();
+    }
 }
+
+
